@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "jest test",
+    "test": "jest",
     "lint": "eslint .",
     "build": "rollup -c",
     "prettier": "npx prettier --check ."
