@@ -15,11 +15,10 @@ export function isText(node: Node) {
 
 export function normalizeWhitespace(text: string) {
   const pattern = /[\f\n\r\t\v ]{2,}/g;
-
   return text.replace(pattern, ' ');
 }
 
-export function getFirstImageUrl(dom: Dom) {
+export function getFirstImageUrl(dom: Dom): string {
   const [img] = dom.getElementsByTagName('img');
   const url = img?.getAttribute('src') || '';
   return url;
