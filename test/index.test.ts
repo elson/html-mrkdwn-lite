@@ -68,17 +68,13 @@ test('inline code should be wrapped in backtick', () => {
 // preformatted code block
 test('preformatted code should be wrapped in backtick fence', () => {
   expect(convert('<pre><code>foo</code></pre>').text).toBe('```\nfoo\n```');
-  expect(convert('<pre><code>foo\nbar</code></pre>').text).toBe(
-    '```\nfoo\nbar\n```'
-  );
+  expect(convert('<pre><code>foo\nbar</code></pre>').text).toBe('```\nfoo\nbar\n```');
 });
 
 // blockquotes
 test('blockquotes should be prefixed with less than symbols', () => {
   expect(convert('<blockquote>foo</blockquote>').text).toBe('> foo');
-  expect(convert('<blockquote>foo\nbar</blockquote>').text).toBe(
-    '> foo\n> bar'
-  );
+  expect(convert('<blockquote>foo\nbar</blockquote>').text).toBe('> foo\n> bar');
 });
 
 // lists
@@ -92,27 +88,21 @@ test('unordered list items should be prefixed with bullet symbols', () => {
   expect(convert('<li>foo</li>').text).toBe('• foo');
   expect(convert('<li>foo</li><li>bar</li>').text).toBe('• foo\n• bar');
   expect(convert('<li><p>foo</p></li>').text).toBe('• foo');
-  expect(convert('<li><p>foo</p></li><li><p>bar</p></li>').text).toBe(
-    '• foo\n• bar'
+  expect(convert('<li><p>foo</p></li><li><p>bar</p></li>').text).toBe('• foo\n• bar');
+  expect(convert('<p>foo</p><ul><li><p>foo</p></li><li><p>bar</p></li></ul>').text).toBe(
+    'foo\n\n• foo\n• bar',
   );
-  expect(
-    convert('<p>foo</p><ul><li><p>foo</p></li><li><p>bar</p></li></ul>').text
-  ).toBe('foo\n\n• foo\n• bar');
 });
 
 test('ordered list items should be prefixed with numbers', () => {
   expect(convert('<ol><li>foo</li></ol>').text).toBe('1. foo');
   expect(convert('<ol start="2"><li>foo</li></ol>').text).toBe('2. foo');
-  expect(convert('<ol><li>foo</li><li>bar</li></ol>').text).toBe(
-    '1. foo\n2. bar'
-  );
+  expect(convert('<ol><li>foo</li><li>bar</li></ol>').text).toBe('1. foo\n2. bar');
   expect(convert('<ol><li><p>foo</p></li></ol>').text).toBe('1. foo');
-  expect(convert('<ol><li><p>foo</p></li><li><p>bar</p></li></ol>').text).toBe(
-    '1. foo\n2. bar'
+  expect(convert('<ol><li><p>foo</p></li><li><p>bar</p></li></ol>').text).toBe('1. foo\n2. bar');
+  expect(convert('<p>foo</p><ol><li><p>foo</p></li><li><p>bar</p></li></ol>').text).toBe(
+    'foo\n\n1. foo\n2. bar',
   );
-  expect(
-    convert('<p>foo</p><ol><li><p>foo</p></li><li><p>bar</p></li></ol>').text
-  ).toBe('foo\n\n1. foo\n2. bar');
 });
 
 // breaks
@@ -131,22 +121,19 @@ test('images should be stripped', () => {
 
 // links
 test('links should become mrkdwn links', () => {
-  expect(convert('<a href="https://www.bar.com/">foo</a>').text).toBe(
-    '<https://www.bar.com/|foo>'
-  );
+  expect(convert('<a href="https://www.bar.com/">foo</a>').text).toBe('<https://www.bar.com/|foo>');
   expect(convert('<a href="https://www.bar.com/">foo<b>bar</b></a>').text).toBe(
-    '<https://www.bar.com/|foo*bar*>'
+    '<https://www.bar.com/|foo*bar*>',
   );
   expect(convert('<a href="https://www.bar.com?key=value">foo</a>').text).toBe(
-    '<https://www.bar.com?key=value|foo>'
+    '<https://www.bar.com?key=value|foo>',
+  );
+  expect(convert('<a href="https://www.bar.com/" target="_blank">foo</a>').text).toBe(
+    '<https://www.bar.com/|foo>',
   );
   expect(
-    convert('<a href="https://www.bar.com/" target="_blank">foo</a>').text
-  ).toBe('<https://www.bar.com/|foo>');
-  expect(
-    convert(
-      '<a href="https://www.foo.com/">foo</a> and <a href="https://www.bar.com/">bar</a>'
-    ).text
+    convert('<a href="https://www.foo.com/">foo</a> and <a href="https://www.bar.com/">bar</a>')
+      .text,
   ).toBe('<https://www.foo.com/|foo> and <https://www.bar.com/|bar>');
 });
 
@@ -159,9 +146,8 @@ test('other elements should be stripped', () => {
   expect(convert('<div class="user-content">foo</div>').text).toBe('foo');
   expect(convert('<div><strong>foo</strong></div>').text).toBe('*foo*');
   expect(
-    convert(
-      '<div><div><span data-linked-element-type="User">@Steve Winton</span></div></div>'
-    ).text
+    convert('<div><div><span data-linked-element-type="User">@Steve Winton</span></div></div>')
+      .text,
   ).toBe('@Steve Winton');
 });
 
@@ -169,12 +155,8 @@ test('other elements should be stripped', () => {
 test('deeply nested elements should be handled', () => {
   expect(convert('<div><div>foo</div></div>').text).toBe('foo');
   expect(convert('<div><div><div>foo</div></div></div>').text).toBe('foo');
-  expect(convert('<div><div><div><div>foo</div></div></div></div>').text).toBe(
-    'foo'
-  );
-  expect(
-    convert('<div><div><div><strong>foo</strong></div></div></div>').text
-  ).toBe('*foo*');
+  expect(convert('<div><div><div><div>foo</div></div></div></div>').text).toBe('foo');
+  expect(convert('<div><div><div><strong>foo</strong></div></div></div>').text).toBe('*foo*');
 });
 
 // strings with no image should return empty string
@@ -186,34 +168,26 @@ test('strings with no image should return empty string', () => {
 // first image
 test('first image url should be extracted', () => {
   expect(convert('<img src="https://snyk.io/download.html">').image).toBe(
-    'https://snyk.io/download.html'
+    'https://snyk.io/download.html',
+  );
+  expect(convert('<img src="https://snyk.io/download.html?size=original">').image).toBe(
+    'https://snyk.io/download.html?size=original',
+  );
+  expect(convert('<img width="1222" height="453" src="https://snyk.io/download.html">').image).toBe(
+    'https://snyk.io/download.html',
+  );
+  expect(convert('<img src="https://snyk.io/download.html" width="1222" height="453">').image).toBe(
+    'https://snyk.io/download.html',
   );
   expect(
-    convert('<img src="https://snyk.io/download.html?size=original">').image
-  ).toBe('https://snyk.io/download.html?size=original');
-  expect(
-    convert(
-      '<img width="1222" height="453" src="https://snyk.io/download.html">'
-    ).image
+    convert('<div><img width="1222" height="453" src="https://snyk.io/download.html"></div>').image,
   ).toBe('https://snyk.io/download.html');
+  expect(convert('<img width="1222" height="453" src="https://snyk.io/download.html">').image).toBe(
+    'https://snyk.io/download.html',
+  );
   expect(
     convert(
-      '<img src="https://snyk.io/download.html" width="1222" height="453">'
-    ).image
-  ).toBe('https://snyk.io/download.html');
-  expect(
-    convert(
-      '<div><img width="1222" height="453" src="https://snyk.io/download.html"></div>'
-    ).image
-  ).toBe('https://snyk.io/download.html');
-  expect(
-    convert(
-      '<img width="1222" height="453" src="https://snyk.io/download.html">'
-    ).image
-  ).toBe('https://snyk.io/download.html');
-  expect(
-    convert(
-      '<img width="1222" height="453" src="https://snyk.io/download.html"><img width="1222" height="453" src="https://snyk.io/other.html">'
-    ).image
+      '<img width="1222" height="453" src="https://snyk.io/download.html"><img width="1222" height="453" src="https://snyk.io/other.html">',
+    ).image,
   ).toBe('https://snyk.io/download.html');
 });

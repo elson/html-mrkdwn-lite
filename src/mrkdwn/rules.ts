@@ -79,7 +79,7 @@ export const rules: Rule[] = [
         const start = parent.getAttribute('start');
         const siblings = parent.childNodes.filter(isElement);
         const index = siblings.indexOf(node);
-        prefix = (parseInt(start) || 1) + index + '. ';
+        prefix = (parseInt(start, 10) || 1) + index + '. ';
       }
       return prefix + content.trim() + '\n';
     },
@@ -87,18 +87,18 @@ export const rules: Rule[] = [
   {
     tags: ['br', 'hr'],
     type: MrkdwnType.inline,
-    replacement: (content: string) => '\n',
+    replacement: () => '\n',
   },
   {
     tags: ['img'],
     type: MrkdwnType.inline,
-    replacement: (content: string) => '',
+    replacement: () => '',
   },
   {
     tags: ['a'],
     type: MrkdwnType.inline,
     replacement: (content: string, node: Node) => {
-      var href = node.getAttribute('href');
+      const href = node.getAttribute('href');
       return `<${href}|${content}>`;
     },
   },
