@@ -1,13 +1,18 @@
-import commonjs from '@rollup/plugin-commonjs';
+import clear from 'rollup-plugin-clear';
 import typescript from '@rollup/plugin-typescript';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default {
   input: 'src/index.ts',
-  output: {
-    dir: 'dist',
-    format: 'iife',
-    name: 'output',
-  },
-  plugins: [commonjs(), nodeResolve(), typescript()],
+  output: [
+    {
+      file: 'dist/index.cjs.js',
+      format: 'cjs',
+    },
+    {
+      file: 'dist/index.esm.js',
+      format: 'esm',
+    },
+  ],
+  external: ['dom-parser'],
+  plugins: [typescript(), clear({ targets: ['dist'] })],
 };
