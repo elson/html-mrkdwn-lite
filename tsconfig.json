@@ -3,12 +3,9 @@
     "target": "es2018",                          
     "module": "esnext",
     "moduleResolution": "node",                     
-    "noEmitOnError": true,
-    "lib": ["es2017"],                            
-    "strict": true,  
-    "esModuleInterop": false,                 
+    "noEmitOnError": true,                         
+    "strict": true,          
     "outDir": "dist/tsc",
-    "rootDir": "./"
   },
   "skipLibCheck": true,
   "include": ["src"]
