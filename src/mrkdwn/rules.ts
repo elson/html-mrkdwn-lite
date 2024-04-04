@@ -16,12 +16,12 @@ export const defaultRule: Rule = {
 export const rules: Rule[] = [
   {
     tags: ['p'],
-    type: BlockType.block,
+    type: BlockType.leaf,
     replacement: (content: string) => content,
   },
   {
     tags: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-    type: BlockType.block,
+    type: BlockType.leaf,
     replacement: (content: string) => '*' + content + '*',
   },
   {

@@ -1,5 +1,5 @@
 export enum BlockType {
   container,
-  block,
+  leaf,
   inline,
 }
