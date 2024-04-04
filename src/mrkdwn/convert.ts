@@ -38,7 +38,7 @@ function replace(node: Node) {
     const content = process(node);
     const { replacement, type } = getRule(node);
     const replaced = replacement(content, node);
-    return type === BlockType.block || type === BlockType.container
+    return type === BlockType.leaf || type === BlockType.container
       ? '\n' + replaced.trim() + '\n'
       : replaced;
   }
