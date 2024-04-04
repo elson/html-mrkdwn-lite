@@ -7,7 +7,7 @@ import {
   normalizeWhitespace,
   parseFromString,
 } from '../dom';
-import { MrkdwnType } from './types';
+import { BlockType } from './types';
 import { Rule, defaultRule, rules } from './rules';
 
 export function convert(html: string = '') {
@@ -38,7 +38,7 @@ function replace(node: Node) {
     const content = process(node);
     const { replacement, type } = getRule(node);
     const replaced = replacement(content, node);
-    return type === MrkdwnType.block || type === MrkdwnType.container
+    return type === BlockType.block || type === BlockType.container
       ? '\n' + replaced.trim() + '\n'
       : replaced;
   }

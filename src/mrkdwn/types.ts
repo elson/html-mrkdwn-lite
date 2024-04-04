@@ -1,4 +1,4 @@
-export enum MrkdwnType {
+export enum BlockType {
   container,
   block,
   inline,

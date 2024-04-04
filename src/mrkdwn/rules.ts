@@ -1,52 +1,52 @@
 import { Node, isElement } from '../dom';
-import { MrkdwnType } from './types';
+import { BlockType } from './types';
 
 export interface Rule {
   tags: string[];
-  type: MrkdwnType;
+  type: BlockType;
   replacement: (content: string, node: Node) => string;
 }
 
 export const defaultRule: Rule = {
   tags: [],
-  type: MrkdwnType.inline,
+  type: BlockType.inline,
   replacement: (content: string) => content,
 };
 
 export const rules: Rule[] = [
   {
     tags: ['p'],
-    type: MrkdwnType.block,
+    type: BlockType.block,
     replacement: (content: string) => content,
   },
   {
     tags: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-    type: MrkdwnType.block,
+    type: BlockType.block,
     replacement: (content: string) => '*' + content + '*',
   },
   {
     tags: ['strong', 'b'],
-    type: MrkdwnType.inline,
+    type: BlockType.inline,
     replacement: (content: string) => '*' + content + '*',
   },
   {
     tags: ['em', 'i'],
-    type: MrkdwnType.inline,
+    type: BlockType.inline,
     replacement: (content: string) => '_' + content + '_',
   },
   {
     tags: ['del', 'strike'],
-    type: MrkdwnType.inline,
+    type: BlockType.inline,
     replacement: (content: string) => '~' + content + '~',
   },
   {
     tags: ['code'],
-    type: MrkdwnType.inline,
+    type: BlockType.inline,
     replacement: (content: string, node: Node) => '`' + node.textContent + '`',
   },
   {
     tags: ['pre'],
-    type: MrkdwnType.container,
+    type: BlockType.container,
     replacement: (content: string, node: Node) => {
       const fence = '```';
       const firstElement = node.childNodes.find(isElement);
@@ -57,7 +57,7 @@ export const rules: Rule[] = [
   },
   {
     tags: ['blockquote'],
-    type: MrkdwnType.container,
+    type: BlockType.container,
     replacement: (content: string) => {
       content = content.trim();
       content = content.replace(/^/gm, '> ');
@@ -66,12 +66,12 @@ export const rules: Rule[] = [
   },
   {
     tags: ['ul', 'ol'],
-    type: MrkdwnType.container,
+    type: BlockType.container,
     replacement: (content: string) => content,
   },
   {
     tags: ['li'],
-    type: MrkdwnType.inline,
+    type: BlockType.inline,
     replacement: (content: string, node: Node) => {
       let prefix = '• ';
       const parent = node.parentNode;
@@ -86,17 +86,17 @@ export const rules: Rule[] = [
   },
   {
     tags: ['br', 'hr'],
-    type: MrkdwnType.inline,
+    type: BlockType.inline,
     replacement: () => '\n',
   },
   {
     tags: ['img'],
-    type: MrkdwnType.inline,
+    type: BlockType.inline,
     replacement: () => '',
   },
   {
     tags: ['a'],
-    type: MrkdwnType.inline,
+    type: BlockType.inline,
     replacement: (content: string, node: Node) => {
       const href = node.getAttribute('href');
       return `<${href}|${content}>`;
