@@ -1,6 +1,6 @@
 {
   "name": "html-mrkdwn-lite",
-  "version": "0.1.0",
+  "version": "0.1.0-beta",
   "description": "A lightweight HTML to Slack mrkdwn converter",
   "keywords": [
     "slack",
