@@ -14,8 +14,10 @@
     "url": "git+https://github.com/elson/html-mrkdwn-lite.git"
   },
   "type": "module",
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "require": "./dist/index.cjs"
+  },
   "files": [
     "dist"
   ],
