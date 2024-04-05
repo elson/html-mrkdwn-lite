@@ -1,13 +1,24 @@
 {
   "name": "html-mrkdwn-lite",
   "version": "0.1.0",
-  "description": "A lightweight HTML to mrkdwn converter",
-  "keywords": [],
+  "description": "A lightweight HTML to Slack mrkdwn converter",
+  "keywords": [
+    "slack",
+    "mrkdwn",
+    "html"
+  ],
   "author": "Stephen Elson",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elson/html-mrkdwn-lite.git"
+  },
+  "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
-  "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "jest",
     "lint": "eslint .",

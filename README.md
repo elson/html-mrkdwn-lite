@@ -1,6 +1,6 @@
 # html-mrkdwn-lite
 
-Lightweight HTML to Slack [mrkdwn](https://api.slack.com/docs/message-formatting) converter.
+A lightweight HTML to Slack [mrkdwn](https://api.slack.com/docs/message-formatting) converter.
 
 Uses the zero-dependency [dom-parser](https://www.npmjs.com/package/dom-parser) package.
 
